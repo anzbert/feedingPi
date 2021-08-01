@@ -1,13 +1,12 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require("express");
+const app = express();
 
-// app.get('/', (req, res) => {
-//   res.send('Hello Marius!')
-// })
+const PORT = 3000;
+const WEB_FOLDER = __dirname + "/web";
 
-app.use('/web', express.static('public'))
+app.use("/", express.static(WEB_FOLDER));
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+app.listen(PORT, () => {
+  console.info(`Listening on port ${PORT}
+  Web Content in ${WEB_FOLDER}`);
+});
