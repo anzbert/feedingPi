@@ -1,4 +1,8 @@
 
 html, body {
-    background-color: hsl(0, 20%, 0%);
+    background-color: hsl(0, 0%, 20%);
+}
+
+h1 {
+    color: hsl(0, 0%, 85%);
 }
