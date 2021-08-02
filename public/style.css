@@ -18,4 +18,5 @@ iframe {
   margin: 10px;
   outline: 0;
   border: 0;
+  overflow: hidden;
 }
