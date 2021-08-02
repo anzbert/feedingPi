@@ -7,12 +7,12 @@
 //   document.body.appendChild(myImage);
 // };
 
-let myImage = new Image(1280, 720);
-  myImage.src = "/webcam" + new Date().getTime();
-  document.body.appendChild(myImage);
+// let myImage = new Image(1280, 720);
+//   myImage.src = "/webcam" + new Date().getTime();
+//   document.body.appendChild(myImage);
 
-myImage.onload = () => {
-console.log("done");
-    myImage.src = "/webcam"+ new Date().getTime();;
+// myImage.onload = () => {
+// console.log("done");
+//     myImage.src = "/webcam"+ new Date().getTime();;
 
-}
+// }
