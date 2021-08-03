@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/webcam*", (req, res) => {
-  res.redirect("http://127.0.0.1:8081")
+  res.redirect("http://127.0.0.1:8080/?action=stream")
 });
 
 app.use(express.static(PUBLIC_FOLDER));
