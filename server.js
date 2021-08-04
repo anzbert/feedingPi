@@ -50,9 +50,9 @@ const proxy = createProxyMiddleware(proxyOptions);
 // EXPRESS:
 const app = express();
 
-app.post("/clicked", (req, res) => {
-  const click = { clickTime: new Date() };
-  console.log(click);
+app.post("/button:number", (req, res) => {
+  const number = req.params.number;
+  console.log(`Button ${number} click received at ${new Date()}`);
   res.sendStatus(200);
 });
 
