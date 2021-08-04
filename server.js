@@ -5,9 +5,7 @@ const { spawn } = require("child_process");
     "-i",
     "input_uvc.so",
     "-o",
-    "output_http.so",
-    "-p",
-    "8080",
+    "output_http.so -p 8080"
   ]);
   mjpgStreamer.stdout.on('data', (data) => {
     console.log(`stdout: ${data}`);
