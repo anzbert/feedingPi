@@ -116,9 +116,10 @@ http.createServer(digest.check(app)).listen(PORT, () => {
 // CLOSING ACTIONS:
 process.on("beforeExit", (code) => {
   // disconnect Gpio here:
-  led.unexport();
-  rotateFeeder.unexport();
-
+  output.forEach(output => {
+    output.unexport();
+  })
+  
   // close mjpg_streamer:
   mjpgStreamer.kill();
 });
