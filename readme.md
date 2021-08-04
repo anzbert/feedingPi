@@ -1,15 +1,25 @@
 ### Pi Feeder
 
-1. clone this repo
+clone this repo
+
 `git clone https://github.com/anzbert/feedingPi.git`
 
-2. install node
-``
+install mjpg streamer from:
 
-3. inside repo folder:
+https://github.com/jacksonliam/mjpg-streamer
+
+install node from:
+
+https://nodejs.org/en/download/ on ARMv7 or ARMv8
+
+on ARMv6, follow these instructions:
+
+https://hassancorrigan.com/blog/install-nodejs-on-a-raspberry-pi-zero/
+
+inside repo folder, enter:
+
 `npm install`
 
-4. install mjpg streamer from https://github.com/jacksonliam/mjpg-streamer
+to start server enter:
 
-5. to start server:
 `node server.js`
