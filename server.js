@@ -1,6 +1,6 @@
 const { spawn } = require("child_process");
 const mjpgStreamer = spawn("mjpg_streamer ", [
-  `-i 'input_uvc.so' -o 'output_http.so -p 8080`,
+  `-i`, `'input_uvc.so'`, `-o`, `'output_http.so -p 8080'`,
 ]);
 const process = require("process");
 
