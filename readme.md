@@ -1,5 +1,6 @@
-### Pi Feeder
+# Pi Feeder
 
+## installation instructions
 update Pi:
 
 `sudo apt-get update`
@@ -23,10 +24,17 @@ on ARMv6 (Pi 1 and Zero), follow these instructions:
 
 https://hassancorrigan.com/blog/install-nodejs-on-a-raspberry-pi-zero/
 
-inside repo folder, enter:
+inside repo folder, enter to fetch libraries:
 
 `npm install`
 
 to start server enter:
 
 `node server.js`
+
+-------------------------
+
+### included npm libraries:
+- express
+- http-proxy-middleware
+- onoff
