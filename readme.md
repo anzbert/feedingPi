@@ -1,6 +1,13 @@
 ### Pi Feeder
 
-clone this repo
+update Pi:
+
+`sudo apt-get update`
+
+`sudo apt-get upgrade`
+
+
+clone this repo:
 
 `git clone https://github.com/anzbert/feedingPi.git`
 
