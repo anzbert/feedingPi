@@ -1,3 +1,4 @@
+const process = require("process");
 const { spawn } = require("child_process");
   // const mjpgStreamer = spawn("mjpg_streamer");
   const mjpgStreamer = spawn("mjpg_streamer", [
@@ -18,12 +19,10 @@ const { spawn } = require("child_process");
   
   mjpgStreamer.on('close', (code) => {
     console.log(`mjpgStreamer exited with code: ${code}`);
+    process.exit();
   });
 
 
-
-
-const process = require("process");
 process.on("beforeExit", (code) => {
   mjpgStreamer.kill();
 });
