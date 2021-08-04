@@ -24,7 +24,7 @@ on ARMv6 (Pi 1 and Zero), follow these instructions:
 
 https://hassancorrigan.com/blog/install-nodejs-on-a-raspberry-pi-zero/
 
-inside repo folder, enter to fetch libraries:
+inside repo folder, download dependencies with:
 
 `npm install`
 
