@@ -53,13 +53,13 @@ const app = express();
 
 app.post("/button:number", (req, res) => {
   const number = req.params.number;
-  console.log(`Button ${number} click received at ${new Date()}`);
+  console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number}`);
 
   res.sendStatus(200); // respond to client with OK
 });
 
 app.use((req, res, next) => {
-  console.log(`${req.ip} requesting: ${req.url}`);
+  console.log(`${new Date().toTimeString()}:: ${req.ip} Requesting: ${req.url}`);
   next();
 });
 
