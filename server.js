@@ -1,18 +1,12 @@
 // REQUIRE MODULES
 const path = require("path");
 const http = require("http");
+const auth = require("http-auth");
 const express = require("express");
 const process = require("process");
 const { spawn } = require("child_process");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const Gpio = require("onoff").Gpio;
-
-const utils = require("./node_modules/http-auth/src/auth/utils");
-const auth = require("http-auth");
-const digest = auth.digest({
-  realm: "piFeeder",
-  file: path.join(__dirname, "data", "users.htdigest"),
-});
 
 // DEV OPTION TO LOG ALL ERRORS INSTEAD OF EXITING:
 process.on("uncaughtException", function (error) {
@@ -71,7 +65,12 @@ app.use("/webcam", proxy);
 
 app.use(express.static(PUBLIC_FOLDER));
 
-// START HTTP SERVER:
+// START HTTP SERVER with DIGEST AUTH:
+const digest = auth.digest({
+  realm: "piFeeder",
+  file: path.join(__dirname, "data", "users.htdigest"),
+});
+
 http.createServer(digest.check(app)).listen(PORT, () => {
   console.log("\n", `NODE SERVER - Listening on Port ${PORT}`, "\n");
 });
