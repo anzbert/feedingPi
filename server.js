@@ -65,7 +65,7 @@ const blinkLed = _ => {
   setTimeout(blinkLed, 200);
 };
 
-blinkLed();
+// blinkLed();
 
 
 // PROXY
@@ -84,6 +84,16 @@ const app = express();
 app.post("/button:number", (req, res) => {
   const number = req.params.number;
   console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number}`);
+
+switch (numer) {
+  case 0:
+    blinkLed();
+    break;
+  case 1:
+    break;
+
+}
+
 
   res.sendStatus(200); // respond to client with OK
 });
