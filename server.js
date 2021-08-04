@@ -23,10 +23,10 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
   ]);
 
   mjpgStreamer.stdout.on("data", (data) => {
-    console.log(`stdout: ${data}`);
+    console.log(`MJPG out: ${data}`);
   });
   mjpgStreamer.stderr.on("data", (data) => {
-    console.error(`stdlog: ${data}`);
+    console.error(`MJPG log: ${data}`);
   });
   mjpgStreamer.on("close", (code) => {
     console.log(`mjpgStreamer exited with code: ${code}`);
@@ -41,7 +41,6 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
 // PROXY
 const proxyOptions = {
   target: "http://127.0.0.1:8080", // target host
-  // changeOrigin: true, // needed for virtual hosted sites
   ws: true, // proxy websockets
   pathRewrite: {
     '^/webcam': '/?action=stream', // rewrite path
@@ -59,14 +58,9 @@ app.use((req, res, next) => {
 
 app.use("/webcam", proxy);
 
-// app.get("/webcam*", (req, res) => {
-//   // res.redirect("http://192.168.1.202:8080/?action=stream");
-
-// });
-
 app.use(express.static(PUBLIC_FOLDER));
 
 // START HTTP SERVER:
 app.listen(PORT, () => {
-  console.info(`NODE SERVER - Listening on Port ${PORT}`);
+  console.log('\n',`NODE SERVER - Listening on Port ${PORT}`,'\n');
 });
