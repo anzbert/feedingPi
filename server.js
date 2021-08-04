@@ -68,8 +68,10 @@ app.use("/webcam", proxy);
 app.use(express.static(PUBLIC_FOLDER));
 
 // START HTTP SERVER with DIGEST AUTH:
-// Digest auth file made with https://github.com/gevorg/htdigest/
-const digest = auth.digest({
+// Digest auth file made with htdigest (https://github.com/gevorg/htdigest/)
+// Install globally with `npm -g install htdigest` and create file:
+//      htdigest -c [path]/data/users.htdigest [realm] [username]
+const digest = auth.digest({  
   realm: "piFeeder",
   file: path.join(__dirname, "data", "users.htdigest"),
 });
