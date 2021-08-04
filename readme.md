@@ -10,9 +10,9 @@ https://github.com/jacksonliam/mjpg-streamer
 
 install node from:
 
-https://nodejs.org/en/download/ on ARMv7 or ARMv8
+https://nodejs.org/en/download/ on ARMv7 or ARMv8 (Pi 2 and newer)
 
-on ARMv6, follow these instructions:
+on ARMv6 (Pi 1 and Zero), follow these instructions:
 
 https://hassancorrigan.com/blog/install-nodejs-on-a-raspberry-pi-zero/
 
