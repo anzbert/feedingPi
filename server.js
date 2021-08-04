@@ -39,23 +39,25 @@ mjpgStreamer.on("close", (code) => {
 });
 
 // GPIO
-const led = new Gpio(4, 'out');
-const solenoid = new Gpio(2, 'out');
+const led = new Gpio(4, "out");
+const solenoid = new Gpio(2, "out");
 
 let stopBlinking = false;
 
 // Toggle the state of the LED connected to GPIO17 every 200ms
-const blinkLed = _ => {
+const blinkLed = (_) => {
   if (stopBlinking) {
     return led.unexport();
   }
 
-  led.read((err, value) => { // Asynchronous read
+  led.read((err, value) => {
+    // Asynchronous read
     if (err) {
       throw err;
     }
 
-    led.write(value ^ 1, err => { // Asynchronous write
+    led.write(value ^ 1, (err) => {
+      // Asynchronous write
       if (err) {
         throw err;
       }
@@ -66,7 +68,6 @@ const blinkLed = _ => {
 };
 
 // blinkLed();
-
 
 // PROXY
 const proxyOptions = {
@@ -83,23 +84,36 @@ const app = express();
 
 app.post("/button:number", (req, res) => {
   const number = parseInt(req.params.number);
-  console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number}`);
+  console.log(
+    `${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number}`
+  );
 
-switch (number) {
-  case 0:
-    blinkLed();
-    break;
-  case 1:
-    break;
-
-}
-
+  switch (number) {
+    case 0:
+      console.log("led 1");
+      led.write(1);
+      setTimeout(() => {
+        console.log("led 0");
+        led.write(0);
+      }, 1000);
+      break;
+    case 1:
+      console.log("solenoid writing 1");
+      solenoid.write(1);
+      setTimeout(() => {
+        console.log("solenoid writing 0");
+        solenoid.write(0);
+      }, 1000);
+      break;
+  }
 
   res.sendStatus(200); // respond to client with OK
 });
 
 app.use((req, res, next) => {
-  console.log(`${new Date().toTimeString()}:: ${req.ip} Requesting: ${req.url}`);
+  console.log(
+    `${new Date().toTimeString()}:: ${req.ip} Requesting: ${req.url}`
+  );
   next();
 });
 
@@ -111,7 +125,7 @@ app.use(express.static(PUBLIC_FOLDER));
 // Digest auth file made with htdigest (https://github.com/gevorg/htdigest/)
 // Install globally with `npm -g install htdigest` and create file:
 //      htdigest -c [path]/data/users.htdigest [realm] [username]
-const digest = auth.digest({  
+const digest = auth.digest({
   realm: "piFeeder",
   file: path.join(__dirname, "data", "users.htdigest"),
 });
@@ -123,8 +137,8 @@ http.createServer(digest.check(app)).listen(PORT, () => {
 // CLOSING ACTIONS:
 process.on("beforeExit", (code) => {
   // disconnect Gpio here:
-led.unexport();
-solenoid.unexport();
+  led.unexport();
+  solenoid.unexport();
 
   // close mjpg_streamer:
   mjpgStreamer.kill();
