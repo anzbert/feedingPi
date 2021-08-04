@@ -16,11 +16,11 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
 
 // LAUNCH AND KILL MJPG STREAMER:
   const mjpgStreamer = spawn("mjpg_streamer", [
+    "--no_dynctrl",
     "-i",
     "input_uvc.so -r 1280x720",
     "-o",
-    "output_http.so -p 8080",
-    "-n"
+    "output_http.so -p 8080"
   ]);
 
   mjpgStreamer.stdout.on("data", (data) => {
