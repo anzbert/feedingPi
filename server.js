@@ -78,9 +78,9 @@ app.post("/button:number", (req, res) => {
     case 1:
       if (rotateFeederReady === 1) {
         rotateFeederReady = 0;
-        solenoid.write(1);
+        rotateFeeder.write(1);
         setTimeout(() => {
-          solenoid.write(0);
+          rotateFeeder.write(0);
           rotateFeederReady = 1;
         }, 200);
       } else console.log("rotateFeeder not ready");
@@ -118,7 +118,7 @@ http.createServer(digest.check(app)).listen(PORT, () => {
 process.on("beforeExit", (code) => {
   // disconnect Gpio here:
   led.unexport();
-  solenoid.unexport();
+  rotateFeeder.unexport();
 
   // close mjpg_streamer:
   mjpgStreamer.kill();
