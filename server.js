@@ -1,7 +1,17 @@
 const { spawn } = require("child_process");
-const mjpgStreamer = spawn("mjpg_streamer ", [
-  '-i', 'input_uvc.so', '-o', 'output_http.so', '-p', '8080'
-]);
+try {
+  const mjpgStreamer = spawn("mjpg_streamer ", [
+    "-i",
+    "input_uvc.so",
+    "-o",
+    "output_http.so",
+    "-p",
+    "8080",
+  ]);
+} catch (err) {
+  console.log(err);
+}
+
 const process = require("process");
 
 process.on("beforeExit", (code) => {
