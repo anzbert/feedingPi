@@ -29,6 +29,8 @@ body {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  flex-grow: 1;
+  align-items: baseline;
 }
 
 button {
@@ -70,9 +72,10 @@ h1 {
 }
 
 .cam-frame {
-  object-fit: contain;
-  max-height: 95%;
+  /* object-fit: contain; */
+  max-height: 80vh;
   max-width: 95vw;
+
   color: var(--white);
   text-align: center;
   font-style: italic;
