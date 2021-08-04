@@ -1,14 +1,14 @@
 const { spawn } = require("child_process");
 try {
-  const mjpgStreamer = spawn("mjpg_streamer");
-  // const mjpgStreamer = spawn("mjpg_streamer", [
-  //   "-i",
-  //   "input_uvc.so",
-  //   "-o",
-  //   "output_http.so",
-  //   "-p",
-  //   "8080",
-  // ]);
+  // const mjpgStreamer = spawn("mjpg_streamer");
+  const mjpgStreamer = spawn("mjpg_streamer", [
+    "-i",
+    "input_uvc.so",
+    "-o",
+    "output_http.so",
+    "-p",
+    "8080",
+  ]);
 } catch (err) {
   console.log(err);
 }
