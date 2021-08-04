@@ -1,10 +1,15 @@
+:root{
+  --black: hsl(0, 0%, 16%);
+  --white: hsl(0, 0%, 82%);
+}
+
 html,
 body {
-  background-color: hsl(0, 0%, 16%);
+  background-color: var(--black);
 }
 
 h1 {
-  color: hsl(0, 0%, 82%);
+  color: var(--white);
 }
 
 .content {
@@ -13,6 +18,9 @@ h1 {
   align-items: center;
 }
 
+iframe{
+  background-color: var(--black);
+}
 
 @supports not (aspect-ratio: 16/9) {
   iframe {
