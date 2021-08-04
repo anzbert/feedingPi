@@ -28,6 +28,15 @@ inside repo folder, download dependencies with:
 
 `npm install`
 
+make digest password file with htdigest:
+
+`npm install -g htdigest`
+
+`htdigest -c [path]/data/users.htdigest [realm(default:piFeeder)] [username]`
+
+ 
+
+
 to start server enter:
 
 `node server.js`
@@ -38,3 +47,4 @@ to start server enter:
 - express
 - http-proxy-middleware
 - onoff
+- http-auth
