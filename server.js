@@ -40,7 +40,7 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
 
 // PROXY
 const proxyOptions = {
-  target: "http://192.168.1.202:8080", // target host
+  target: "http://127.0.0.1:8080", // target host
   // changeOrigin: true, // needed for virtual hosted sites
   ws: true, // proxy websockets
   pathRewrite: {
