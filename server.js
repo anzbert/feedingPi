@@ -1,12 +1,14 @@
-// REQUIRE MODULES
+// NODE MODULES
 const path = require("path");
 const http = require("http");
-const auth = require("http-auth");
-const express = require("express");
 const process = require("process");
 const { spawn } = require("child_process");
-const { createProxyMiddleware } = require("http-proxy-middleware");
-const Gpio = require("onoff").Gpio;
+
+// 3rd PARTY MODULES
+const auth = require("http-auth"); // https://github.com/gevorg/http-auth
+const express = require("express"); // https://expressjs.com/
+const { createProxyMiddleware } = require("http-proxy-middleware"); // https://github.com/chimurai/http-proxy-middleware
+const Gpio = require("onoff").Gpio; // https://github.com/fivdi/onoff
 
 // DEV OPTION TO LOG ALL ERRORS INSTEAD OF EXITING:
 process.on("uncaughtException", function (error) {
@@ -66,6 +68,7 @@ app.use("/webcam", proxy);
 app.use(express.static(PUBLIC_FOLDER));
 
 // START HTTP SERVER with DIGEST AUTH:
+// Digest auth file made with https://github.com/gevorg/htdigest/
 const digest = auth.digest({
   realm: "piFeeder",
   file: path.join(__dirname, "data", "users.htdigest"),
