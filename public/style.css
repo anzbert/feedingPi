@@ -73,7 +73,7 @@ h1 {
 
 .cam-frame {
   /* object-fit: contain; */
-  max-height: 80vh;
+  max-height: 70vh;
   max-width: 95vw;
 
   color: var(--white);
