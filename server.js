@@ -1,5 +1,4 @@
 const { spawn } = require("child_process");
-try {
   // const mjpgStreamer = spawn("mjpg_streamer");
   const mjpgStreamer = spawn("mjpg_streamer", [
     "-i",
@@ -9,9 +8,20 @@ try {
     "-p",
     "8080",
   ]);
-} catch (err) {
-  console.log(err);
-}
+  mjpgStreamer.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
+  });
+  
+  mjpgStreamer.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  
+  mjpgStreamer.on('close', (code) => {
+    console.log(`mjpgStreamer exited with code: ${code}`);
+  });
+
+
+
 
 const process = require("process");
 process.on("beforeExit", (code) => {
