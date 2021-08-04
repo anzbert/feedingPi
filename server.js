@@ -8,7 +8,12 @@ const { spawn } = require("child_process");
 const auth = require("http-auth"); // https://github.com/gevorg/http-auth
 const express = require("express"); // https://expressjs.com/
 const { createProxyMiddleware } = require("http-proxy-middleware"); // https://github.com/chimurai/http-proxy-middleware
-const Gpio = require("onoff").Gpio; // https://github.com/fivdi/onoff
+
+// DEV OPTION for testing on non-linux:
+function Gpio() {}
+if (process.platform == "linux") {
+  Gpio = require("onoff").Gpio; // https://github.com/fivdi/onoff
+}
 
 // DEV OPTION TO LOG ALL ERRORS INSTEAD OF EXITING:
 process.on("uncaughtException", function (error) {
@@ -39,13 +44,17 @@ mjpgStreamer.on("close", (code) => {
 });
 
 // GPIO
-const led = new Gpio(4, "out");
-const rotateFeeder = new Gpio(2, "out");
+const output = [
+  new Gpio(4, "out"), // LED
+  new Gpio(2, "out"), // Rotator
+  new Gpio(6, "out"), // Dispenser Left
+  new Gpio(5, "out"), // Dispenser Right
+];
+const outputCanOnlyActivateOnce = [false, false, true, true];
+const outputActivationTime = [2000, 400, 1000, 1000]; // in milliseconds
+let outputReady = [true, true, true, true]; // startUp ready-state
 
-let ledReady = 1;
-let rotateFeederReady = 1;
-
-// PROXY
+// CREATE WEBCAM PROXY
 const proxyOptions = {
   target: "http://127.0.0.1:8080", // target host
   ws: true, // proxy websockets
@@ -55,7 +64,7 @@ const proxyOptions = {
 };
 const proxy = createProxyMiddleware(proxyOptions);
 
-// EXPRESS:
+// EXPRESS FLOW:
 const app = express();
 
 app.post("/button:number", (req, res) => {
@@ -64,27 +73,17 @@ app.post("/button:number", (req, res) => {
     `${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number}`
   );
 
-  switch (number) {
-    case 0:
-      if (ledReady === 1) {
-        ledReady = 0;
-        led.write(1);
-        setTimeout(() => {
-          led.write(0);
-          ledReady = 1;
-        }, 1000);
-      } else console.log("led not ready");
-      break;
-    case 1:
-      if (rotateFeederReady === 1) {
-        rotateFeederReady = 0;
-        rotateFeeder.write(1);
-        setTimeout(() => {
-          rotateFeeder.write(0);
-          rotateFeederReady = 1;
-        }, 400);
-      } else console.log("rotateFeeder not ready");
-      break;
+  if (outputReady[number] === true) {
+    outputReady[number] = false;
+    output[number].write(1);
+    setTimeout(() => {
+      output[number].write(0);
+      if (outputCanOnlyActivateOnce[number] === false) {
+        outputReady[number] = true;
+      }
+    }, outputActivationTime[number]);
+  } else {
+    console.log(`Output ${number} not ready`);
   }
 
   res.sendStatus(200); // respond to client with OK
