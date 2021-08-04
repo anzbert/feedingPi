@@ -26,7 +26,7 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
     console.log(`stdout: ${data}`);
   });
   mjpgStreamer.stderr.on("data", (data) => {
-    console.error(`stderr: ${data}`);
+    console.error(`stdlog: ${data}`);
   });
   mjpgStreamer.on("close", (code) => {
     console.log(`mjpgStreamer exited with code: ${code}`);
