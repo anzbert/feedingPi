@@ -4,6 +4,7 @@ const express = require("express");
 const process = require("process");
 const { spawn } = require("child_process");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const Gpio = require("onoff").Gpio;
 
 // DEV OPTION TO LOG ALL ERRORS INSTEAD OF EXITING:
 process.on("uncaughtException", function (error) {
@@ -14,7 +15,7 @@ process.on("uncaughtException", function (error) {
 const PORT = 3000;
 const PUBLIC_FOLDER = path.join(__dirname, "public");
 
-// LAUNCH AND KILL MJPG STREAMER:
+// LAUNCH AND LOG FROM MJPG STREAMER:
 const mjpgStreamer = spawn("mjpg_streamer", [
   "-i",
   "input_uvc.so --no_dynctrl -r 1280x720",
@@ -33,10 +34,6 @@ mjpgStreamer.on("close", (code) => {
   process.exit();
 });
 
-process.on("beforeExit", (code) => {
-  mjpgStreamer.kill();
-});
-
 // PROXY
 const proxyOptions = {
   target: "http://127.0.0.1:8080", // target host
@@ -53,7 +50,8 @@ const app = express();
 app.post("/button:number", (req, res) => {
   const number = req.params.number;
   console.log(`Button ${number} click received at ${new Date()}`);
-  res.sendStatus(200);
+
+  res.sendStatus(200); // respond to client with OK
 });
 
 app.use((req, res, next) => {
@@ -68,4 +66,12 @@ app.use(express.static(PUBLIC_FOLDER));
 // START HTTP SERVER:
 app.listen(PORT, () => {
   console.log("\n", `NODE SERVER - Listening on Port ${PORT}`, "\n");
+});
+
+// CLOSING ACTIONS:
+process.on("beforeExit", (code) => {
+  // disconnect Gpio here:
+
+  // close mjpg_streamer:
+  mjpgStreamer.kill();
 });

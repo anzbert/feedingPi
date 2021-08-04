@@ -1,6 +1,6 @@
 const feedButtons = document.querySelectorAll(".feed-button");
 
-feedButtons.forEach((button, number) =>{
+feedButtons.forEach((button, number) => {
   button.addEventListener("click", () => {
     fetch(`/button${number}`, { method: "POST" })
       .then(function (response) {
@@ -14,5 +14,5 @@ feedButtons.forEach((button, number) =>{
         console.log(error);
       });
   });
+});
 
-})
