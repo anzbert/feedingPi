@@ -18,29 +18,9 @@ h1 {
   align-items: center;
 }
 
-iframe{
-  background-color: var(--black);
-  /* max-width: 720px; */
-transform: scale(0.5);
-}
+.cam-frame {
+max-width: 95vw;
 
-@media screen and {
-  
-}
-
-@supports (aspect-ratio: 16/9) {
-  iframe {
-    aspect-ratio: 16/9;
-    width: 100%;
-  }
-}
-
-@supports not (aspect-ratio: 16/9) {
-  iframe {
-    width: calc(100vw - 30px);
-    height: calc((100vw - 30px) * .5625);
-    max-height: calc(700px * .5625);
-  }
 }
 
 
