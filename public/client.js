@@ -8,11 +8,10 @@ feedButtons.forEach((button, number) => {
           console.log(`Button ${number} click recorded`);
           return;
         }
-        throw new Error(`Request from button ${number} failed.`);
+        console.log(`Request from button ${number} failed.`);
       })
       .catch(function (error) {
         console.log(error);
       });
   });
 });
-
