@@ -72,6 +72,9 @@ app.listen(PORT, () => {
 process.on("beforeExit", (code) => {
   // disconnect Gpio here:
 
+  // button.unexport();
+
+
   // close mjpg_streamer:
   mjpgStreamer.kill();
 });
