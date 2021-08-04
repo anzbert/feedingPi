@@ -85,7 +85,7 @@ app.post("/button:number", (req, res) => {
   const number = req.params.number;
   console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number}`);
 
-switch (numer) {
+switch (number) {
   case 0:
     blinkLed();
     break;
