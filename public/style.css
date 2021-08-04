@@ -71,6 +71,34 @@ h1 {
   font-size: var(--responsive-header-font);
 }
 
+.cam-container {
+  position: relative;
+  border: 5px solid var(--white);
+  border-radius: 2px;
+  margin: 1rem;
+}
+
+.cam-label {
+  background-color: var(--black);
+  /* background-color: red; */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: fit-content;
+  min-width: 35%;
+  padding: 0.8em 0.3em ;
+  height: 10%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cam-label-text {
+  font-size: var(--responsive-text-font);
+  white-space: nowrap;
+}
+
 .cam-frame {
   /* object-fit: contain; */
   max-height: 70vh;
@@ -79,7 +107,4 @@ h1 {
   color: var(--white);
   text-align: center;
   font-style: italic;
-  border: 5px solid var(--white);
-  border-radius: 2px;
-  margin: 1rem;
 }
