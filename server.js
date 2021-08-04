@@ -20,6 +20,7 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
     "input_uvc.so -r 1280x720",
     "-o",
     "output_http.so -p 8080",
+    "-n"
   ]);
 
   mjpgStreamer.stdout.on("data", (data) => {
