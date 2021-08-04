@@ -38,6 +38,36 @@ mjpgStreamer.on("close", (code) => {
   process.exit();
 });
 
+// GPIO
+const led = new Gpio(4, 'out');
+const solenoid = new Gpio(2, 'out');
+
+let stopBlinking = false;
+
+// Toggle the state of the LED connected to GPIO17 every 200ms
+const blinkLed = _ => {
+  if (stopBlinking) {
+    return led.unexport();
+  }
+
+  led.read((err, value) => { // Asynchronous read
+    if (err) {
+      throw err;
+    }
+
+    led.write(value ^ 1, err => { // Asynchronous write
+      if (err) {
+        throw err;
+      }
+    });
+  });
+
+  setTimeout(blinkLed, 200);
+};
+
+blinkLed();
+
+
 // PROXY
 const proxyOptions = {
   target: "http://127.0.0.1:8080", // target host
@@ -83,8 +113,8 @@ http.createServer(digest.check(app)).listen(PORT, () => {
 // CLOSING ACTIONS:
 process.on("beforeExit", (code) => {
   // disconnect Gpio here:
-
-  // button.unexport();
+led.unexport();
+solenoid.unexport();
 
   // close mjpg_streamer:
   mjpgStreamer.kill();
