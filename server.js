@@ -82,7 +82,7 @@ app.post("/button:number", (req, res) => {
         setTimeout(() => {
           rotateFeeder.write(0);
           rotateFeederReady = 1;
-        }, 200);
+        }, 400);
       } else console.log("rotateFeeder not ready");
       break;
   }
