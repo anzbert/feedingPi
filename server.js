@@ -9,19 +9,10 @@ const Gpio = require("onoff").Gpio;
 
 const utils = require("./node_modules/http-auth/src/auth/utils");
 const auth = require("http-auth");
-const digest = auth.digest(
-  {
-    realm: "piFeeder",
-  },
-  (username, callback) => {
-    // Expecting md5(username:realm:password) in callback.
-    if (username === "feed") {
-      callback(utils.md5("feed:piFeeder:mepie"));
-    } else {
-      callback();
-    }
-  }
-);
+const digest = auth.digest({
+  realm: "piFeeder",
+  file: path.join(__dirname, "data", "users.htdigest"),
+});
 
 // DEV OPTION TO LOG ALL ERRORS INSTEAD OF EXITING:
 process.on("uncaughtException", function (error) {
@@ -81,17 +72,9 @@ app.use("/webcam", proxy);
 app.use(express.static(PUBLIC_FOLDER));
 
 // START HTTP SERVER:
-// app.listen(PORT, () => {
-//   console.log("\n", `NODE SERVER - Listening on Port ${PORT}`, "\n");
-// });
-
-http
-  .createServer(
-    digest.check(app)
-  )
-  .listen(PORT, () => {
-    console.log("\n", `NODE SERVER - Listening on Port ${PORT}`, "\n");
-  });
+http.createServer(digest.check(app)).listen(PORT, () => {
+  console.log("\n", `NODE SERVER - Listening on Port ${PORT}`, "\n");
+});
 
 // CLOSING ACTIONS:
 process.on("beforeExit", (code) => {
