@@ -40,34 +40,10 @@ mjpgStreamer.on("close", (code) => {
 
 // GPIO
 const led = new Gpio(4, "out");
-const solenoid = new Gpio(2, "out");
+const rotateFeeder = new Gpio(2, "out");
 
-let stopBlinking = false;
-
-// Toggle the state of the LED connected to GPIO17 every 200ms
-const blinkLed = (_) => {
-  if (stopBlinking) {
-    return led.unexport();
-  }
-
-  led.read((err, value) => {
-    // Asynchronous read
-    if (err) {
-      throw err;
-    }
-
-    led.write(value ^ 1, (err) => {
-      // Asynchronous write
-      if (err) {
-        throw err;
-      }
-    });
-  });
-
-  setTimeout(blinkLed, 200);
-};
-
-// blinkLed();
+const ledReady = 1;
+const rotateFeederReady = 1;
 
 // PROXY
 const proxyOptions = {
@@ -90,20 +66,24 @@ app.post("/button:number", (req, res) => {
 
   switch (number) {
     case 0:
-      console.log("led 1");
-      led.write(1);
-      setTimeout(() => {
-        console.log("led 0");
-        led.write(0);
-      }, 1000);
+      if (ledReady === 1) {
+        ledReady = 0;
+        led.write(1);
+        setTimeout(() => {
+          led.write(0);
+          ledReady = 1;
+        }, 1000);
+      } else console.log("led not ready");
       break;
     case 1:
-      console.log("solenoid writing 1");
-      solenoid.write(1);
-      setTimeout(() => {
-        console.log("solenoid writing 0");
-        solenoid.write(0);
-      }, 1000);
+      if (rotateFeederReady === 1) {
+        rotateFeederReady = 0;
+        solenoid.write(1);
+        setTimeout(() => {
+          solenoid.write(0);
+          rotateFeederReady = 1;
+        }, 200);
+      } else console.log("rotateFeeder not ready");
       break;
   }
 
