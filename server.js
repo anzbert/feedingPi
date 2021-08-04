@@ -82,7 +82,7 @@ const proxy = createProxyMiddleware(proxyOptions);
 const app = express();
 
 app.post("/button:number", (req, res) => {
-  const number = req.params.number;
+  const number = parseInt(req.params.number);
   console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number}`);
 
 switch (number) {
