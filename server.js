@@ -17,7 +17,7 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
 // LAUNCH AND KILL MJPG STREAMER:
   const mjpgStreamer = spawn("mjpg_streamer", [
     "-i",
-    "input_uvc.so",
+    "input_uvc.so -r 1280x720",
     "-o",
     "output_http.so -p 8080",
   ]);
@@ -45,13 +45,7 @@ const proxyOptions = {
   ws: true, // proxy websockets
   pathRewrite: {
     '^/webcam': '/?action=stream', // rewrite path
-    // '^/api/remove/path': '/path', // remove base path
-  },
-  // router: {
-  //   when request.headers.host == 'dev.localhost:3000',
-  //   override target 'http://www.example.org' to 'http://localhost:8000'
-  //   '/webcam': '/?action=stream',
-  // },
+  }
 };
 const proxy = createProxyMiddleware(proxyOptions);
 
