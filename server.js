@@ -3,48 +3,54 @@ const path = require("path");
 const express = require("express");
 const process = require("process");
 const { spawn } = require("child_process");
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
+
+// DEV OPTION TO LOG ALL ERRORS INSTEAD OF EXITING:
+process.on('uncaughtException', function (error) {
+  console.log(error.stack);
+});
 
 // DEFINE GLOBAL CONSTANTS:
 const PORT = 3000;
 const PUBLIC_FOLDER = path.join(__dirname, "public");
 
 // LAUNCH AND KILL MJPG STREAMER:
-const mjpgStreamer = spawn("mjpg_streamer", [
-  "-i",
-  "input_uvc.so",
-  "-o",
-  "output_http.so -p 8080",
-]);
+  const mjpgStreamer = spawn("mjpg_streamer", [
+    "-i",
+    "input_uvc.so",
+    "-o",
+    "output_http.so -p 8080",
+  ]);
 
-mjpgStreamer.stdout.on("data", (data) => {
-  console.log(`stdout: ${data}`);
-});
-mjpgStreamer.stderr.on("data", (data) => {
-  console.error(`stderr: ${data}`);
-});
-mjpgStreamer.on("close", (code) => {
-  console.log(`mjpgStreamer exited with code: ${code}`);
-  process.exit();
-});
+  mjpgStreamer.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+  mjpgStreamer.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  mjpgStreamer.on("close", (code) => {
+    console.log(`mjpgStreamer exited with code: ${code}`);
+    process.exit();
+  });
 
-process.on("beforeExit", (code) => {
-  mjpgStreamer.kill();
-});
+  process.on("beforeExit", (code) => {
+    mjpgStreamer.kill();
+  });
+
 
 // PROXY
 const proxyOptions = {
-  target: '192.168.1.202:8080', // target host
+  target: "http://192.168.1.202:8080", // target host
   // changeOrigin: true, // needed for virtual hosted sites
   ws: true, // proxy websockets
-  // pathRewrite: {
-  //   '^/api/old-path': '/api/new-path', // rewrite path
-  //   '^/api/remove/path': '/path', // remove base path
-  // },
+  pathRewrite: {
+    '^/webcam': '/?action=stream', // rewrite path
+    // '^/api/remove/path': '/path', // remove base path
+  },
   // router: {
-  //   // when request.headers.host == 'dev.localhost:3000',
-  //   // override target 'http://www.example.org' to 'http://localhost:8000'
-  //   'dev.localhost:3000': 'http://localhost:8000',
+  //   when request.headers.host == 'dev.localhost:3000',
+  //   override target 'http://www.example.org' to 'http://localhost:8000'
+  //   '/webcam': '/?action=stream',
   // },
 };
 const proxy = createProxyMiddleware(proxyOptions);
@@ -57,7 +63,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/webcam*', proxy);
+app.use("/webcam", proxy);
+
 // app.get("/webcam*", (req, res) => {
 //   // res.redirect("http://192.168.1.202:8080/?action=stream");
 
