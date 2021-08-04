@@ -13,9 +13,20 @@ h1 {
   align-items: center;
 }
 
-iframe {
-  width: calc(100vw - 30px);
-  height: calc((100vw - 30px) * .5625);
-  max-width: 700px;
-  max-height: calc(700px * .5625);
+
+@supports not (aspect-ratio: 16/9) {
+  iframe {
+    width: calc(100vw - 30px);
+    height: calc((100vw - 30px) * .5625);
+    max-width: 720px;
+    max-height: calc(700px * .5625);
+  }
 }
+@supports (aspect-ratio: 16/9) {
+  iframe {
+    aspect-ratio: 16/9;
+    width: 100%;
+    max-width: 720px;
+  }
+}
+
