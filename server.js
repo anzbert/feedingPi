@@ -42,8 +42,8 @@ mjpgStreamer.on("close", (code) => {
 const led = new Gpio(4, "out");
 const rotateFeeder = new Gpio(2, "out");
 
-const ledReady = 1;
-const rotateFeederReady = 1;
+let ledReady = 1;
+let rotateFeederReady = 1;
 
 // PROXY
 const proxyOptions = {
