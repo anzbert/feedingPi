@@ -1,4 +1,4 @@
-const feedButtons = document.querySelectorAll(".feed-button");
+const feedButtons = document.querySelectorAll(".feed-buttons");
 
 feedButtons.forEach((button, number) => {
   button.addEventListener("click", () => {
