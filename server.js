@@ -45,10 +45,10 @@ mjpgStreamer.on("close", (code) => {
 
 // GPIO
 const output = [
-  new Gpio(4, "out"), // LED
-  new Gpio(2, "out"), // Rotator
-  new Gpio(6, "out"), // Dispenser Left
-  new Gpio(5, "out"), // Dispenser Right
+  new Gpio(26, "out"), // LED
+  new Gpio(19, "out"), // Rotator
+  new Gpio(13, "out"), // Dispenser Left
+  new Gpio(6, "out"), // Dispenser Right
 ];
 const outputCanOnlyActivateOnce = [false, false, true, true];
 const outputActivationTime = [2000, 400, 1000, 1000]; // in milliseconds
