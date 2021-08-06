@@ -51,7 +51,7 @@ const output = [
   new Gpio(6, "out"), // Dispenser Right (6)
 ];
 const outputActivationTime = [400, 1500, 600, 1500]; // in milliseconds
-const outputCanOnlyActivateOnce = [false, false, false, false];
+const outputCanOnlyActivateOnce = [false, false, false, false]; // @todo set activation limits
 let outputReady = [true, true, true, true]; // startUp ready-state
 
 // CREATE WEBCAM PROXY
