@@ -45,10 +45,10 @@ mjpgStreamer.on("close", (code) => {
 
 // GPIO
 const output = [
-  new Gpio(26, "out"), // LED
-  new Gpio(19, "out"), // Rotator
-  new Gpio(13, "out"), // Dispenser Left
-  new Gpio(6, "out"), // Dispenser Right
+  new Gpio(26, "out"), // Rotator (26)
+  new Gpio(13, "out"), // Dispenser Left (13)
+  new Gpio(19, "out"), // Bell (19)
+  new Gpio(6, "out"), // Dispenser Right (6)
 ];
 const outputCanOnlyActivateOnce = [false, false, true, true];
 const outputActivationTime = [2000, 400, 1000, 1000]; // in milliseconds
@@ -74,6 +74,12 @@ app.post("/button:number", (req, res) => {
   );
 
   if (outputReady[number] === true) {
+    
+    // BELL
+    if (number === 2) {
+      // @todo show a ding logo and play a ding sound on the client
+    }
+
     outputReady[number] = false;
     output[number].write(1);
     setTimeout(() => {
@@ -116,10 +122,10 @@ http.createServer(digest.check(app)).listen(PORT, () => {
 // CLOSING ACTIONS:
 process.on("beforeExit", (code) => {
   // disconnect Gpio here:
-  output.forEach(output => {
+  output.forEach((output) => {
     output.unexport();
-  })
-  
+  });
+
   // close mjpg_streamer:
   mjpgStreamer.kill();
 });
