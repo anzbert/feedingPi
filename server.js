@@ -74,24 +74,29 @@ app.post("/button:number", (req, res) => {
   );
 
   if (outputReady[number] === true) {
-    // BELL
+    // BELL only:
     if (number === 2) {
       // @todo show a ding logo and play a ding sound on the client
     }
 
-    outputReady[number] = false;
-    output[number].write(1);
+    output[number].write(1); // turn on
+    outputReady[number] = false; // de-activate
+
     setTimeout(() => {
-      output[number].write(0);
+      output[number].write(0); // turn off
+
+      // re-activate:
       if (outputCanOnlyActivateOnce[number] === false) {
         outputReady[number] = true;
       }
     }, outputActivationTime[number]);
-  } else {
-    console.log(`Output ${number} not ready`);
-  }
 
-  res.sendStatus(200); // respond to client with OK
+    res.sendStatus(200); // respond to client with OK
+  } else {
+    // NOT ready:
+    console.log(`Output ${number} not ready`);
+    res.sendStatus(500); // respond with server error
+  }
 });
 
 app.use((req, res, next) => {

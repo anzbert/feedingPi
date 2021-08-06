@@ -5,10 +5,10 @@ feedButtons.forEach((button, number) => {
     fetch(`/button${number}`, { method: "POST" })
       .then(function (response) {
         if (response.ok) {
-          console.log(`Button ${number} click recorded`);
+          console.log(`Button ${number} activation successful!`);
           return;
         }
-        console.log(`Request from button ${number} failed.`);
+        console.log(`Button ${number} not ready...`);
       })
       .catch(function (error) {
         console.log(error);
