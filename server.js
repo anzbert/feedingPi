@@ -3,6 +3,7 @@ const path = require("path");
 const http = require("http");
 const process = require("process");
 const { spawn } = require("child_process");
+const exec = require("child_process").exec;
 
 // 3rd PARTY MODULES
 const auth = require("http-auth"); // https://github.com/gevorg/http-auth
@@ -66,6 +67,16 @@ const proxy = createProxyMiddleware(proxyOptions);
 
 // EXPRESS FLOW:
 const app = express();
+
+app.post("/shutdown-server", (req, res) => {
+  exec("sudo shutdown now", (error, stdout, stderr) => {
+    if (error) {
+      console.log("Out", stdout);
+      console.log("Err", stderr);
+      console.error(`Exec error: ${error}`);
+    }
+  });
+});
 
 app.post("/button:number", (req, res) => {
   const number = parseInt(req.params.number);

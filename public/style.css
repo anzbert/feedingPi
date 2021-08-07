@@ -64,7 +64,14 @@ header {
   width: 100vw;
   color: var(--black);
   padding-left: 2rem;
+  display: flex;
 }
+
+.shutdown-button {
+margin-left: auto;
+margin-right: 0.4em;
+}
+
 
 h1 {
   margin: 0.4em;
