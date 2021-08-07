@@ -1,0 +1,30 @@
+# for automatic starting as a Service:
+# put into /lib/systemd/system
+
+# start:
+# sudo systemctl start pifeeder
+
+# start at startup:
+# sudo systemctl enable pifeeder
+
+# access logs with: journalctl -f -u pifeeder.service
+
+[Unit]
+Description=pifeeder
+After=network.target
+
+[Service]
+SyslogIdentifier=NodeJS pifeeder
+Environment=NODE_ENV=production
+
+Type=simple
+User=pi
+
+WorkingDirectory=/home/pi/pifeeder
+ExecStart=/usr/local/bin/node server.js
+# restart value can also be 'always'
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
