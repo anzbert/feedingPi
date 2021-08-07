@@ -74,11 +74,6 @@ app.post("/button:number", (req, res) => {
   );
 
   if (outputReady[number] === true) {
-    // BELL only:
-    if (number === 2) {
-      // @todo show a ding logo and play a ding sound on the client
-    }
-
     output[number].write(1); // turn on
     outputReady[number] = false; // de-activate
 
