@@ -72,6 +72,7 @@ h1 {
 }
 
 .cam-container {
+  transform: rotate(90deg);
   position: relative;
   border: 5px solid var(--white);
   border-radius: 2px;
@@ -108,5 +109,4 @@ h1 {
   text-align: center;
   font-style: italic;
 
-  transform: rotate(90deg);
 }
