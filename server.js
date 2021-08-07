@@ -77,7 +77,7 @@ app.use((req, res, next) => {
 
 app.post("/shutdown-pi", (req, res) => {
   console.log("::shutdown command executing::");
-  exec("shutdown now", (error, stdout, stderr) => {
+  exec("sudo shutdown now", (error, stdout, stderr) => {
     if (error) {
       console.log("Out", stdout);
       console.log("Err", stderr);
