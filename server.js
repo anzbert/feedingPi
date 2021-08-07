@@ -68,7 +68,14 @@ const proxy = createProxyMiddleware(proxyOptions);
 // EXPRESS FLOW:
 const app = express();
 
-app.post("/shutdown-server", (req, res) => {
+app.use((req, res, next) => {
+  console.log(
+    `${new Date().toTimeString()}:: ${req.ip} Requesting: ${req.url}`
+  );
+  next();
+});
+
+app.post("/shutdown-pi", (req, res) => {
   console.log("::shutdown command executing::");
   exec("shutdown now", (error, stdout, stderr) => {
     if (error) {
@@ -106,12 +113,7 @@ app.post("/button:number", (req, res) => {
   }
 });
 
-app.use((req, res, next) => {
-  console.log(
-    `${new Date().toTimeString()}:: ${req.ip} Requesting: ${req.url}`
-  );
-  next();
-});
+
 
 app.use("/webcam", proxy);
 
