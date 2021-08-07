@@ -132,7 +132,7 @@ h1 {
   background-color: var(--white);
   font-weight: 600;
   z-index: 99;
-  animation: wobble-ver-left 1s both;
+  animation: wobble-ver-left 0.8s both;
 }
 
 @keyframes wobble-ver-left {
