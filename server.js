@@ -82,7 +82,9 @@ app.post("/shutdown-pi", (req, res) => {
       console.log("Out", stdout);
       console.log("Err", stderr);
       console.error(`Exec error: ${error}`);
+      res.sendStatus(500);
     }
+    res.sendStatus(202);
   });
 });
 
@@ -112,8 +114,6 @@ app.post("/button:number", (req, res) => {
     res.sendStatus(500); // respond with server error
   }
 });
-
-
 
 app.use("/webcam", proxy);
 

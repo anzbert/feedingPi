@@ -68,10 +68,9 @@ header {
 }
 
 .shutdown-button {
-margin-left: auto;
-margin-right: 0.4em;
+  margin-left: auto;
+  margin-right: 0.4em;
 }
-
 
 h1 {
   margin: 0.4em;
@@ -79,7 +78,6 @@ h1 {
 }
 
 .cam-container {
-  /* transform: rotate(90deg); */
   position: relative;
   border: 5px solid var(--white);
   border-radius: 2px;
@@ -88,7 +86,6 @@ h1 {
 
 .cam-label {
   background-color: var(--black);
-  /* background-color: red; */
   position: absolute;
   left: 0;
   bottom: 0;
@@ -108,7 +105,6 @@ h1 {
 }
 
 .cam-frame {
-  /* object-fit: contain; */
   max-height: 70vh;
   max-width: 95vw;
 

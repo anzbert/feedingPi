@@ -35,7 +35,7 @@ const shutdownButton = document.querySelector(".shutdown-button");
 shutdownButton.addEventListener("click", () => {
   let result = window.confirm("Really shut down the Server?");
   if (result) {
-    fetch("/shutdown-pi", { method: 'POST' })
+    fetch("/shutdown-pi", { method: "POST" })
       .then((response) => {
         if (response.ok) console.log("Shutting down Raspberry Pi........");
         else console.log("Shut down signal failed");
