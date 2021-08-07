@@ -69,6 +69,7 @@ const proxy = createProxyMiddleware(proxyOptions);
 const app = express();
 
 app.post("/shutdown-server", (req, res) => {
+  console.log("::shutdown command executing::");
   exec("shutdown now", (error, stdout, stderr) => {
     if (error) {
       console.log("Out", stdout);
