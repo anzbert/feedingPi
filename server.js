@@ -69,7 +69,7 @@ const proxy = createProxyMiddleware(proxyOptions);
 const app = express();
 
 app.post("/shutdown-server", (req, res) => {
-  exec("sudo shutdown now", (error, stdout, stderr) => {
+  exec("shutdown now", (error, stdout, stderr) => {
     if (error) {
       console.log("Out", stdout);
       console.log("Err", stderr);
