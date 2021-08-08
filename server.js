@@ -57,7 +57,7 @@ let outputReady = [true, true, true, true]; // startUp ready-state
 
 // CREATE WEBCAM PROXY
 const proxyOptions = {
-  target: "http://127.0.0.1:8080", // target host
+  target: "http://192.168.1.202:8080", // target host
   ws: true, // proxy websockets
   pathRewrite: {
     "^/webcam": "/?action=stream", // rewrite path
