@@ -28,7 +28,7 @@ const PUBLIC_FOLDER = path.join(__dirname, "public");
 // LAUNCH AND LOG FROM MJPG STREAMER:
 const mjpgStreamer = spawn("mjpg_streamer", [
   "-i",
-  "input_uvc.so --no_dynctrl -r 1280x720",
+  "input_uvc.so --no_dynctrl -r 720x1280",
   "-o",
   "output_http.so -p 8080",
 ]);
