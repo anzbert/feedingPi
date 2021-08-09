@@ -51,10 +51,6 @@ button:active {
   transform: translate(1px, 1px);
 }
 
-.content {
-
-}
-
 header {
   background-color: wheat;
   width: 100vw;
