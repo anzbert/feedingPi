@@ -48,12 +48,12 @@ mjpgStreamer.on("close", (code) => {
 const output = [
   new Gpio(26, "out"), // Rotator (26)
   new Gpio(13, "out"), // Dispenser Left (13)
-  new Gpio(19, "out"), // Bell (19)
+  // new Gpio(19, "out"), // Bell (19)
   new Gpio(6, "out"), // Dispenser Right (6)
 ];
-const outputActivationTime = [400, 1500, 600, 1500]; // in milliseconds
-const outputCanOnlyActivateOnce = [false, false, false, false]; // @todo set activation limits
-let outputReady = [true, true, true, true]; // startUp ready-state
+const outputActivationTime = [400, 1500, 1500]; // in milliseconds
+const outputCanOnlyActivateOnce = [false, false, false]; // @todo set activation limits
+let outputReady = [true, true, true]; // startUp ready-state
 
 // CREATE WEBCAM PROXY
 const proxyOptions = {
