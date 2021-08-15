@@ -1,4 +1,8 @@
 # for automatic starting as a Service:
+
+# create user without sudo group access ('web' in this example)
+#, but with necessary pi groups access (usermod -G [username],gpio,i2c,spi,input,video [username])
+
 # put into /lib/systemd/system
 
 # start:
@@ -14,11 +18,11 @@ Description=pifeeder
 After=network.target
 
 [Service]
+User=web
+Type=simple
+
 SyslogIdentifier=NodeJS pifeeder
 Environment=NODE_ENV=production
-
-Type=simple
-User=pi
 
 WorkingDirectory=/home/pi/pifeeder
 ExecStart=/usr/local/bin/node server.js
