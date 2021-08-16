@@ -55,7 +55,6 @@ header {
   background-color: wheat;
   width: 100vw;
   color: var(--black);
-  padding-left: 1rem;
   display: flex;
   align-items: center;
 }
