@@ -107,3 +107,80 @@ h1 {
   text-align: center;
   font-style: italic;
 }
+
+/* CONFIRMATION BUBBLE */
+.confirm {
+  display: none;
+  position: absolute;
+  border-radius: 10%;
+  height: 3em;
+  width: fit-content;
+  top: 30px;
+  left: 50px;
+}
+
+.confirm-text {
+  color: var(--black);
+  padding: 1em;
+}
+
+.show-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  font-weight: 600;
+  z-index: 99;
+  animation: wobble-hor-top 0.8s both;
+}
+
+ @keyframes wobble-hor-top {
+  0% {
+    display: block;
+  }
+  1% ,100% {
+    transform: translateX(0%);
+    transform-origin: 50% 50%;
+  }
+  15% {
+    transform: translateX(-30px) rotate(6deg);
+  }
+  30% {
+    transform: translateX(15px) rotate(-6deg);
+  }
+  45% {
+    transform: translateX(-15px) rotate(3.6deg);
+  }
+  60% {
+    transform: translateX(9px) rotate(-2.4deg);
+  }
+  75% {
+    transform: translateX(-6px) rotate(1.2deg);
+  }
+}
+
+@keyframes wobble-ver-left {
+  0% {
+    display: block;
+  }
+  1%,
+  100% {
+    transform: translateY(0) rotate(0);
+    transform-origin: 50% 50%;
+  }
+  15% {
+    transform: translateY(-30px) rotate(-6deg);
+  }
+  30% {
+    transform: translateY(15px) rotate(6deg);
+  }
+  45% {
+    transform: translateY(-15px) rotate(-3.6deg);
+  }
+  60% {
+    transform: translateY(9px) rotate(2.4deg);
+  }
+  75% {
+    transform: translateY(-6px) rotate(-1.2deg);
+  }
+}

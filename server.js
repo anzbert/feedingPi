@@ -1,3 +1,5 @@
+"use strict";
+
 // NODE MODULES
 const path = require("path");
 const http = require("http");
@@ -88,6 +90,12 @@ app.post("/shutdown-pi", (req, res) => {
   });
 });
 
+// FOR TESTING:
+// app.post("/button:number", (req, res) => {
+//   res.sendStatus(200);
+// });
+
+// IN PRODUCTION:
 app.post("/button:number", (req, res) => {
   const number = parseInt(req.params.number);
   console.log(
