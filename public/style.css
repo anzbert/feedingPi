@@ -134,11 +134,12 @@ h1 {
   animation: wobble-hor-top 0.8s both;
 }
 
- @keyframes wobble-hor-top {
+@keyframes wobble-hor-top {
   0% {
     display: block;
   }
-  1% ,100% {
+  1%,
+  100% {
     transform: translateX(0%);
     transform-origin: 50% 50%;
   }
