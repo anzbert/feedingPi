@@ -124,7 +124,7 @@ app.post("/button:number", (req, res) => {
     res.sendStatus(200); // respond to client with OK
   } else {
     // NOT ready:
-    console.log(`Output ${number} not ready`);
+    console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number} - NOT READY YET!!`);
     res.sendStatus(500); // respond with server error
   }
 });
