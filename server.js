@@ -79,6 +79,12 @@ app.use((req, res, next) => {
 
 app.post("/shutdown-pi", (req, res) => {
   console.log("::shutdown command executing::");
+
+  // allow user to shutdown / reboot without sudo access:
+  //
+  // sudo visudo
+  // add : [username] ALL=(ALL) NOPASSWD: /sbin/poweroff, /sbin/reboot, /sbin/shutdown
+
   exec("sudo shutdown now", (error, stdout, stderr) => {
     if (error) {
       console.log("Out", stdout);
