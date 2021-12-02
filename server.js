@@ -43,14 +43,14 @@ mjpgStreamer.stderr.on("data", (data) => {
 });
 mjpgStreamer.on("close", (code) => {
   console.log(`mjpgStreamer exited with code: ${code}`);
-  process.exit();
+  // process.exit(); // shut down when mjpg streamer startup fails
 });
 
 // GPIO
 const output = [
-  new Gpio(13, "out"), // Rotator (13)
-  new Gpio(26, "out"), // Dispenser Left (26)
-  new Gpio(19, "out"), // Dispenser Right (19)
+  new Gpio(13, "out"), // 0: Rotator (13)
+  new Gpio(19, "out"), // 1: Dispenser Right (19)
+  new Gpio(26, "out"), // 2: Dispenser Left (26)
 ];
 const outputActivationTime = [400, 1500, 1500]; // in milliseconds
 const outputCanOnlyActivateOnce = [false, false, false]; // @todo set activation limits
@@ -123,7 +123,11 @@ app.post("/button:number", (req, res) => {
     res.sendStatus(200); // respond to client with OK
   } else {
     // NOT ready:
-    console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number} - NOT READY YET!!`);
+    console.log(
+      `${new Date().toTimeString()}:: ${
+        req.ip
+      } Clicked Button: ${number} - NOT READY YET!!`
+    );
     res.sendStatus(500); // respond with server error
   }
 });
