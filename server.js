@@ -1,3 +1,5 @@
+"use strict";
+
 // NODE MODULES
 const path = require("path");
 const http = require("http");
@@ -93,6 +95,12 @@ app.post("/shutdown-pi", (req, res) => {
   });
 });
 
+// FOR TESTING:
+// app.post("/button:number", (req, res) => {
+//   res.sendStatus(200);
+// });
+
+// IN PRODUCTION:
 app.post("/button:number", (req, res) => {
   const number = parseInt(req.params.number);
   console.log(
@@ -115,7 +123,7 @@ app.post("/button:number", (req, res) => {
     res.sendStatus(200); // respond to client with OK
   } else {
     // NOT ready:
-    console.log(`Output ${number} not ready`);
+    console.log(`${new Date().toTimeString()}:: ${req.ip} Clicked Button: ${number} - NOT READY YET!!`);
     res.sendStatus(500); // respond with server error
   }
 });
