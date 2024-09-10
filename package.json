@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2",
+    "express": "^4.20.0",
     "http-auth": "^4.2.0",
     "http-proxy-middleware": "^3.0.0",
     "onoff": "^6.0.3"
